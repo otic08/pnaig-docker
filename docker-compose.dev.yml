@@ -59,12 +59,14 @@ services:
       - DATASTORE_READONLY_USER
       - DATASTORE_READONLY_PASSWORD
       - DATASTORE_DB
+    ports:
+      - "0.0.0.0:5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
-     
+
   solr:
     image: ckan/ckan-solr:${SOLR_IMAGE_VERSION}
     volumes:
